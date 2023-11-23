@@ -1,6 +1,6 @@
 package dev.aronba.javelin.components;
 
-import dev.aronba.javelin.util.Compiler;
+import dev.aronba.javelin.util.CompilHelper;
 import dev.aronba.javelin.util.FileIO;
 import dev.aronba.javelin.Javelin;
 import dev.aronba.javelin.exceptions.CompilationFailedException;
@@ -87,8 +87,8 @@ public class MenuBar extends JMenuBar {
         File file = FileIO.openFile().get();
 
 
-        if (Compiler.compileJava(file) == 0) {
-            Process process = Compiler.runJava(file.getName());
+        if (CompilHelper.compileJava(file) == 0) {
+            Process process = CompilHelper.runJava(file.getName());
 
             javelin.setCurrentComponent(new Console(process));
 

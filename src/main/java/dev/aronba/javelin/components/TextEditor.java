@@ -2,6 +2,7 @@ package dev.aronba.javelin.components;
 
 import dev.aronba.javelin.util.FileIO;
 import dev.aronba.javelin.Javelin;
+import dev.aronba.javelin.util.LastProjectManager;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
@@ -39,6 +40,7 @@ public class TextEditor extends JPanel implements JavelinComponent {
         this.setLayout(new BorderLayout());
         if (file.isFile()) currentlyEditingFile = file;
         if (file.isDirectory()) projectRoot = file;
+        LastProjectManager.saveLastProject(file);
 
         setTextArea(dimension, file);
         setFileTree();
@@ -62,9 +64,19 @@ public class TextEditor extends JPanel implements JavelinComponent {
         this.add(fileTreeScrollPane, BorderLayout.WEST);
     }
     private void openFile(File file) {
-        this.header.setText(file.getName());
-        this.textArea.setText(FileIO.read(file));
-        this.currentlyEditingFile = file;
+        if (file.isFile()){
+            this.header.setText( file.getName());
+            this.textArea.setText(FileIO.read(file));
+            this.textArea.setEditable(true);
+            this.textArea.setFont(new Font("Arial",Font.BOLD,14));
+            this.currentlyEditingFile = file;
+        } else if (file.isDirectory()){
+            this.header.setText("");
+            this.textArea.setText("Nothing here");
+            this.textArea.setEditable(false);
+            this.textArea.setFont(new Font("Arial",Font.BOLD,50));
+        }
+
         repaint();
         revalidate();
     }

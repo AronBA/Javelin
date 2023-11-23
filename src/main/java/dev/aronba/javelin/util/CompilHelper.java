@@ -1,11 +1,9 @@
 package dev.aronba.javelin.util;
 
-import dev.aronba.javelin.exceptions.CompilationFailedException;
-
 import java.io.File;
 import java.io.IOException;
 
-public class Compiler {
+public class CompilHelper {
 
 
     public static int compileJava(File file) {
