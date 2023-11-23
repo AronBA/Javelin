@@ -38,10 +38,19 @@ public class FileIO {
 
     }
 
-    public static Optional<File> open() {
+
+    public static Optional<File> openFolder(){
         JFileChooser jFileChooser = new JFileChooser();
         jFileChooser.setCurrentDirectory(new File("."));
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (jFileChooser.showOpenDialog(null) != JFileChooser.APPROVE_OPTION) return Optional.empty();
 
+        return Optional.of(jFileChooser.getSelectedFile());
+    }
+    public static Optional<File> openFile() {
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setCurrentDirectory(new File("."));
+        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         if (jFileChooser.showOpenDialog(null) != JFileChooser.APPROVE_OPTION) return Optional.empty();
 
         return Optional.of(jFileChooser.getSelectedFile());

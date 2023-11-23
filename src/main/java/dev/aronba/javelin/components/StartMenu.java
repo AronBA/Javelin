@@ -29,7 +29,7 @@ public class StartMenu extends JPanel implements JavelinComponent {
 
         openFileButton  = new JButton("Open File");
         openFileButton.addActionListener(a -> {
-            Optional<File> file = FileIO.open();
+            Optional<File> file = FileIO.openFile();
             if (file.isEmpty()) return;
 
             javelin.setFullScreen();
@@ -37,7 +37,14 @@ public class StartMenu extends JPanel implements JavelinComponent {
 
         });
         openProjectButton = new JButton("Open Project");
-        openProjectButton.setEnabled(false);
+        openProjectButton.addActionListener(a -> {
+            Optional<File> folder = FileIO.openFolder();
+            if (folder.isEmpty()) return;
+            javelin.setFullScreen();
+            javelin.setCurrentComponent(new TextEditor(javelin.getSize(), folder.get()));
+
+        });
+
 
         openVSCButton = new JButton("Open from Vsc");
         openVSCButton.setEnabled(false);

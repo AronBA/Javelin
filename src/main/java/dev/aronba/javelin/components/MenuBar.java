@@ -84,7 +84,7 @@ public class MenuBar extends JMenuBar {
 
     private void run(ActionEvent actionEvent) {
 
-        File file = FileIO.open().get();
+        File file = FileIO.openFile().get();
 
 
         if (Compiler.compileJava(file) == 0) {
@@ -117,11 +117,12 @@ public class MenuBar extends JMenuBar {
             return;
         }
 
-        Optional<File> file = FileIO.open();
+        Optional<File> file = FileIO.openFile();
 
         if (file.isPresent()) {
             String text = FileIO.read(file.get());
-            textEditor.textArea.append(text);
+
+            textEditor.textArea.setText(text);
         }
 
 
