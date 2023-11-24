@@ -24,14 +24,10 @@ public class FileIO {
             }
         }
 
-        PrintWriter printWriter = null;
-        try {
-            printWriter = new PrintWriter(file);
+        try (PrintWriter printWriter = new PrintWriter(file)) {
             printWriter.println(text);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
-         } finally {
-            printWriter.close();
         }
 
 

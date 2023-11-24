@@ -68,13 +68,11 @@ public class TextEditor extends JPanel implements JavelinComponent {
             this.header.setText( file.getName());
             this.textArea.setText(FileIO.read(file));
             this.textArea.setEditable(true);
-            this.textArea.setFont(new Font("Arial",Font.BOLD,14));
             this.currentlyEditingFile = file;
-        } else if (file.isDirectory()){
-            this.header.setText("");
-            this.textArea.setText("Nothing here");
-            this.textArea.setEditable(false);
-            this.textArea.setFont(new Font("Arial",Font.BOLD,50));
+
+
+
+            textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         }
 
         repaint();

@@ -20,5 +20,9 @@ public class LastProjectManager {
             return null;
         }
     }
+    public static void removeLastProject(){
+        Preferences preferences = Preferences.userNodeForPackage(LastProjectManager.class);
+        preferences.remove(KEY_LAST_PROJECT);
+    }
 
 }

@@ -6,8 +6,8 @@ Very good ide
 - [x] texteditor
 - [x] syntaxhighliting
 
-- [ ] filetree
-- [ ] open projects
+- [x] filetree
+- [x] open projects
 - [ ] console 
 - [ ] actually running shit
 - [ ] git integration
@@ -16,5 +16,3 @@ Very good ide
 - [ ] vim shortcuts
 - [ ] auto complete
 - [ ] debugger (never)
-
-

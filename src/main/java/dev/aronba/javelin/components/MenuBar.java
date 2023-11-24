@@ -4,6 +4,7 @@ import dev.aronba.javelin.util.CompilHelper;
 import dev.aronba.javelin.util.FileIO;
 import dev.aronba.javelin.Javelin;
 import dev.aronba.javelin.exceptions.CompilationFailedException;
+import dev.aronba.javelin.util.LastProjectManager;
 
 
 import javax.swing.*;
@@ -19,12 +20,11 @@ public class MenuBar extends JMenuBar {
     JMenuItem saveItem;
     JMenuItem exitItem;
     JMenuItem openItem;
-
+    JMenuItem closeItem;
     JMenu componentMenu;
     JMenuItem startItem;
     JMenuItem editorItem;
     JMenuItem consoleItem;
-
     JMenu runMenu;
     JMenuItem runItem;
 
@@ -41,15 +41,18 @@ public class MenuBar extends JMenuBar {
         openItem = new JMenuItem("Open");
         exitItem = new JMenuItem("Exit");
         saveItem = new JMenuItem("Save");
+        closeItem = new JMenuItem("Close Project");
 
         openItem.addActionListener(this::open);
         exitItem.addActionListener(this::exit);
         saveItem.addActionListener(this::save);
+        closeItem.addActionListener(this::close);
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
         fileMenu.add(exitItem);
+        fileMenu.add(closeItem);
 
         this.add(fileMenu);
 
@@ -96,7 +99,16 @@ public class MenuBar extends JMenuBar {
         } else throw new CompilationFailedException();
 
     }
+    private void close(ActionEvent actionEvent){
+        if (currentComponent instanceof TextEditor){
+            StartMenu startMenu = new StartMenu();
+            startMenu.setJavelinReference(javelin);
+            LastProjectManager.removeLastProject();
+            javelin.setSize(new Dimension( 400,400));
+            javelin.setCurrentComponent(startMenu);
 
+        }
+    }
     private void save(ActionEvent actionEvent) {
         if (!(currentComponent instanceof TextEditor textEditor)) {
             System.out.printf("nothing to save");
