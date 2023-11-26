@@ -32,3 +32,7 @@ Very good IDE (I'm terrible at writing Swing components)
 - [ ] Junit Integration
 - [ ] QuestLab support?
 - [ ] debugger (never)
+
+
+## How to Run
+- don't
