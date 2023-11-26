@@ -419,26 +419,19 @@ public class TextEditorLineNumber extends JPanel
         //  View of the component has not been updated at the time
         //  the DocumentEvent is fired
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    int endPos = component.getDocument().getLength();
-                    Rectangle rect = component.modelToView(endPos);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                int endPos = component.getDocument().getLength();
+                Rectangle rect = component.modelToView(endPos);
 
-                    if (rect != null && rect.y != lastHeight)
-                    {
-                        setPreferredWidth();
+                if (rect != null && rect.y != lastHeight)
+                {
+                    setPreferredWidth();
 //						repaint();
-                        getParent().repaint();
-                        lastHeight = rect.y;
-                    }
+                    getParent().repaint();
+                    lastHeight = rect.y;
                 }
-                catch (BadLocationException ex) { /* nothing to do */ }
-            }
+            } catch (BadLocationException ex) { /* nothing to do */ }
         });
     }
 

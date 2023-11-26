@@ -101,7 +101,6 @@ public class TextEditor extends JSplitPane {
         this.textArea.setText(FileUtil.read(file));
         this.textArea.setSyntaxEditingStyle(FileTypeUtil.get().guessContentType(file));
         this.currentlyEditingFile = file;
-
         revalidate();
         repaint();
     }

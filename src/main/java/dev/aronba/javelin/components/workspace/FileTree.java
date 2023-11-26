@@ -57,6 +57,7 @@ public class FileTree extends JPanel {
         return new DefaultTreeModel(root);
     }
 
+
     /**
      * Handles the event when a file is clicked in the tree, executing the callback with the selected file.
      *
@@ -66,6 +67,7 @@ public class FileTree extends JPanel {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeSelectionEvent.getPath().getLastPathComponent();
         File file = (File) node.getUserObject();
         selectedFileCallBack.accept(file);
+
     }
 
     /**

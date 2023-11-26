@@ -41,7 +41,6 @@ public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
                 setIcon(new ImageIcon(resize));
             } catch (Exception e) {
                 // Handle exception if icon is not found
-                e.printStackTrace();
             }
         }
 

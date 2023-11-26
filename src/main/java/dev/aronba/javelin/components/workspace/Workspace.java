@@ -2,6 +2,7 @@ package dev.aronba.javelin.components.workspace;
 
 import dev.aronba.javelin.Project;
 import dev.aronba.javelin.util.LastProjectManager;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +15,10 @@ import java.io.File;
 public class Workspace extends JPanel {
 
     /**
+     *
      * The project associated with the workspace.
      */
+    @Getter
     private Project project;
 
     /**
@@ -84,8 +87,8 @@ public class Workspace extends JPanel {
         this.add(verticalSplit, BorderLayout.CENTER);
 
         // Open README file in the text editor if available
-        if (project.getReadme() != null) {
-            textEditor.openFile(project.getReadme());
+        if (project.getReadmeFile() != null) {
+            textEditor.openFile(project.getReadmeFile());
         }
     }
 

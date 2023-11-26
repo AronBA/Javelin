@@ -49,6 +49,7 @@ public class Terminal extends JPanel {
         textArea.setAutoscrolls(true);
 
         jScrollPane = new JScrollPane(textArea);
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 10));
         this.add(inputField, BorderLayout.AFTER_LAST_LINE);

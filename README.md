@@ -17,7 +17,7 @@ Very good IDE (I'm terrible at writing Swing components)
 - [ ] git integration
 - [ ] unit tests
 - [ ] logging
-- [ ] exceptionHandling
+- [ ] exceptionHandling_
 ---
 ### nice to have
 - [ ] add more icons
