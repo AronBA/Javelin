@@ -8,11 +8,17 @@ Very good ide
 - [x] filetree
 - [x] open projects
 - [X] console 
-- 
+
 - [ ] actually running shit
 - [ ] git integration
+- [ ] unit tests
+- [ ] logging
+- [ ] exceptionHandling
+
+- [ ] settings/prefrences
 - [ ] multiple open files
-- [ ] settings
 - [ ] vim shortcuts
 - [ ] auto complete
+- [ ] Junit Integration
+- [ ] QuestLab support?
 - [ ] debugger (never)
