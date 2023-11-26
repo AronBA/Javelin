@@ -5,10 +5,10 @@ Very good ide
 ## todo
 - [x] texteditor
 - [x] syntaxhighliting
-
 - [x] filetree
 - [x] open projects
-- [ ] console 
+- [X] console 
+- 
 - [ ] actually running shit
 - [ ] git integration
 - [ ] multiple open files

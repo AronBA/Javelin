@@ -1,4 +1,7 @@
-package dev.aronba.javelin.components;
+package dev.aronba.javelin.components.workspace;
+
+import dev.aronba.javelin.exceptions.IconNotFoundException;
+import dev.aronba.javelin.util.FileUtil;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -6,7 +9,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 import java.io.File;
 
-public class CustomCellRenderer extends DefaultTreeCellRenderer {
+import static dev.aronba.javelin.util.FileUtil.getFileType;
+
+public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -23,20 +28,13 @@ public class CustomCellRenderer extends DefaultTreeCellRenderer {
                 setIcon(new ImageIcon(resize));
 
                 } catch (Exception e){
+
                 }
         }
 
         return this;
     }
-    private String getFileType(File file){
-        String fileName = file.getName();
-        int dotI = fileName.lastIndexOf(".");
-        if (dotI > 0 && dotI < fileName.length() -1){
-            return fileName.substring(dotI+1).toLowerCase();
-        } else {
-            return "Unknown";
-        }
-    }
+
 
 
 }

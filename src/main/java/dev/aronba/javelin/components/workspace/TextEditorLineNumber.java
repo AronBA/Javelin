@@ -1,4 +1,4 @@
-package dev.aronba.javelin.components;
+package dev.aronba.javelin.components.workspace;
 import java.awt.*;
 import java.beans.*;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import javax.swing.text.*;
  *  This class was designed to be used as a component added to the row header
  *  of a JScrollPane.
  */
-public class TextLineNumber extends JPanel
+public class TextEditorLineNumber extends JPanel
         implements CaretListener, DocumentListener, PropertyChangeListener
 {
     public final static float LEFT = 0.0f;
@@ -56,7 +56,7 @@ public class TextLineNumber extends JPanel
      *
      *  @param component  the related text component
      */
-    public TextLineNumber(JTextComponent component)
+    public TextEditorLineNumber(JTextComponent component)
     {
         this(component, 3);
     }
@@ -68,7 +68,7 @@ public class TextLineNumber extends JPanel
      *  @param minimumDisplayDigits  the number of digits used to calculate
      *                               the minimum width of the component
      */
-    public TextLineNumber(JTextComponent component, int minimumDisplayDigits)
+    public TextEditorLineNumber(JTextComponent component, int minimumDisplayDigits)
     {
         this.component = component;
 

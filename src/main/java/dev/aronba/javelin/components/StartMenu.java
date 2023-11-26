@@ -1,24 +1,30 @@
 package dev.aronba.javelin.components;
 
-import dev.aronba.javelin.util.FileIO;
+import dev.aronba.javelin.Project;
+import dev.aronba.javelin.components.workspace.TextEditor;
+import dev.aronba.javelin.components.workspace.Workspace;
+import dev.aronba.javelin.util.FileUtil;
 import dev.aronba.javelin.Javelin;
+import dev.aronba.javelin.util.JavelinSize;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.Optional;
 
-public class StartMenu extends JPanel implements JavelinComponent {
+public class StartMenu extends JPanel   {
 
     Javelin javelin;
-    JButton openFileButton;
     JButton openProjectButton;
     JButton openVSCButton;
 
 
-    public StartMenu(){
+    public StartMenu(Javelin javelin){
+        this.javelin = javelin;
 
-        this.setLayout(new BorderLayout(10,10));
+        javelin.setSize(JavelinSize.SMALL);
+
+        this.setLayout(new FlowLayout());
         ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("logo.png"));
         Image image = icon.getImage();
         Image resize = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
@@ -27,43 +33,36 @@ public class StartMenu extends JPanel implements JavelinComponent {
         this.add(titleLabel, BorderLayout.CENTER);
 
 
-        openFileButton  = new JButton("Open File");
-        openFileButton.addActionListener(a -> {
-            Optional<File> file = FileIO.openFile();
-            if (file.isEmpty()) return;
-
-            javelin.setFullScreen();
-            javelin.setCurrentComponent(new TextEditor(javelin.getSize(), file.get()));
-
-        });
         openProjectButton = new JButton("Open Project");
-        openProjectButton.addActionListener(a -> {
-            Optional<File> folder = FileIO.openFolder();
-            if (folder.isEmpty()) return;
-            javelin.setFullScreen();
-            javelin.setCurrentComponent(new TextEditor(javelin.getSize(), folder.get()));
-
-        });
-
+        openProjectButton.addActionListener( actionEvent-> openProject());
 
         openVSCButton = new JButton("Open from Vsc");
         openVSCButton.setEnabled(false);
+        openVSCButton.addActionListener(actionEvent -> getProject());
 
 
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new BorderLayout(5,5));
 
         southPanel.add(openVSCButton, BorderLayout.SOUTH);
-        southPanel.add(openFileButton, BorderLayout.CENTER);
         southPanel.add(openProjectButton, BorderLayout.NORTH);
 
         this.add(southPanel, BorderLayout.SOUTH);
     }
 
+    private void openProject(){
+        Optional<File> folder = FileUtil.openFolder();
+        if (folder.isEmpty()) return;
+        javelin.setFullScreen();
 
-
-    public void setJavelinReference(Javelin javelin) {
-        this.javelin = javelin;
+        javelin.setCurrentComponent(new Workspace(new Project(folder.get())));
     }
+    private void newProject(){
+
+    }
+    private void getProject(){
+
+    }
+
 
 }

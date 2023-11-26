@@ -7,7 +7,10 @@ import dev.aronba.javelin.Javelin;
 import javax.swing.*;
 
 public class Main {
+
     public static void main(String[] args) {
+
+
         FlatAtomOneDarkIJTheme.setup();
         SwingUtilities.invokeLater(Javelin::new);
     }

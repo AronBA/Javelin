@@ -1,47 +1,43 @@
 package dev.aronba.javelin;
 
-import dev.aronba.javelin.components.JavelinComponent;
-import dev.aronba.javelin.components.MenuBar;
+import dev.aronba.javelin.components.NavBar;
 import dev.aronba.javelin.components.StartMenu;
-import dev.aronba.javelin.components.TextEditor;
-import dev.aronba.javelin.exceptions.ComponentNotJavelinException;
+import dev.aronba.javelin.components.workspace.Workspace;
+import dev.aronba.javelin.util.JavelinSize;
 import dev.aronba.javelin.util.LastProjectManager;
 import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
+import java.io.File;
+import java.util.logging.Logger;
 
 public class Javelin extends JFrame {
 
-    private final dev.aronba.javelin.components.MenuBar menuBar;
+    private final NavBar navBar;
     @Getter
     private Component currentJavelinComponent;
 
     public Javelin() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Javelin");
-
-        this.setSize(400, 400);
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("logo.png")).getImage());
+        this.navBar = new NavBar(this);
+        this.setJMenuBar(navBar);
 
-        this.menuBar = new MenuBar(this);
-        this.setJMenuBar(menuBar);
+        File lastProjectRoot = LastProjectManager.getLastProject();
 
-        if (LastProjectManager.getLastProject() == null) {
-            StartMenu startMenu = new StartMenu();
-            startMenu.setJavelinReference(this);
+        if (lastProjectRoot == null) {
+            StartMenu startMenu = new StartMenu(this);
             setCurrentComponent(startMenu);
 
         } else {
             SwingUtilities.invokeLater(() ->{
-
+                Project project = new Project(lastProjectRoot);
+                setCurrentComponent(new Workspace(project));
                 setFullScreen();
-                setCurrentComponent(new TextEditor(this.getSize(), LastProjectManager.getLastProject()));
-
-
             });
         }
 
@@ -49,27 +45,20 @@ public class Javelin extends JFrame {
     }
 
     public void setFullScreen() {
+            this.setSize(JavelinSize.NORMAL);
             this.setExtendedState(Frame.MAXIMIZED_BOTH);
             this.repaint();
             this.revalidate();
-
     }
 
     public void setCurrentComponent(Component newComponent) {
-            if (!(newComponent instanceof JavelinComponent)) throw new ComponentNotJavelinException();
             if (this.currentJavelinComponent != null) this.remove(currentJavelinComponent);
 
-            this.menuBar.setVisible(!(newComponent instanceof StartMenu));
-            this.add(newComponent);
-            this.menuBar.setCurrentComponent(newComponent);
+            this.navBar.setVisible(!(newComponent instanceof StartMenu));
+            this.add(newComponent,BorderLayout.CENTER);
             this.revalidate();
             this.repaint();
-
             this.currentJavelinComponent = newComponent;
 
-
-
-
     }
-
 }
