@@ -73,7 +73,7 @@ public class NavBar extends JMenuBar {
     private void runProject(){
         if (javelin.getCurrentJavelinComponent() instanceof Workspace workspace && (workspace.getProject() != null)){
 
-                workspace.getProject().runMain();
+                workspace.getProject().runProject();
 
         }
     }
