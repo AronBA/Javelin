@@ -1,7 +1,4 @@
-package dev.aronba.javelin.components.workspace;
-
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
-import com.formdev.flatlaf.ui.FlatCaret;
+package dev.aronba.javelin.components;
 
 import javax.swing.*;
 import java.awt.*;

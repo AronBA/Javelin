@@ -1,28 +1,25 @@
 package dev.aronba.javelin.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 /**
- * The FileUtil class provides utility methods for working with files, such as saving files,
+ * The FileIO class provides utility methods for working with files, such as saving files,
  * determining file types, opening folders and files, and reading file contents.
  */
-public class FileUtil {
+public class FileIO {
 
-    private FileUtil() {
-        // Private constructor to prevent instantiation; all methods are static.
+    private static final Logger logger = LoggerFactory.getLogger(FileIO.class);
+
+    private FileIO() {
     }
 
-    /**
-     * Saves the given text to the specified file. If the file is null, opens a file dialog to choose a file.
-     *
-     * @param file The file to save the text to, or null to open a file dialog.
-     * @param text The text to save.
-     */
     public static void saveFile(File file, String text) {
         if (file == null) {
             JFileChooser jFileChooser = new JFileChooser();
@@ -39,31 +36,35 @@ public class FileUtil {
         try (PrintWriter printWriter = new PrintWriter(file)) {
             printWriter.println(text);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            logger.error(e.getMessage());
         }
     }
 
-    /**
-     * Gets the file type (extension) of the specified file.
-     *
-     * @param file The file to determine the type for.
-     * @return The file type (extension) as a lowercase string, or "Unknown" if the type is not recognized.
-     */
     public static String getFileType(File file) {
         String fileName = file.getName();
         int dotI = fileName.lastIndexOf(".");
         if (dotI > 0 && dotI < fileName.length() - 1) {
             return fileName.substring(dotI + 1).toLowerCase();
         } else {
+          //todo -> stupid ass log  logger.warn("Unknown fileType for file: " + file.getName());
             return "Unknown";
         }
     }
 
-    /**
-     * Opens a file dialog to choose a folder and returns an Optional containing the selected folder.
-     *
-     * @return An Optional containing the selected folder, or empty if the user cancels the operation.
-     */
+    public static String[] getALlJavaFiles(File srcRoot){
+
+       if (!srcRoot.isDirectory()){
+           logger.info("invalid src root " + srcRoot.getAbsolutePath());
+           return new String[0];
+       }
+        File[] javaFiles = srcRoot.listFiles((dir, name) -> name.endsWith(".java"));
+       if (javaFiles == null || javaFiles.length <= 0){
+           logger.info("empty src soot " + srcRoot.getAbsolutePath());
+           return new String[0];
+       }
+
+       return Arrays.stream(javaFiles).map(File::getAbsolutePath).toArray(String[]::new);
+    }
     public static Optional<File> openFolder() {
         JFileChooser jFileChooser = new JFileChooser();
         jFileChooser.setCurrentDirectory(new File("."));
@@ -73,11 +74,7 @@ public class FileUtil {
         return Optional.of(jFileChooser.getSelectedFile());
     }
 
-    /**
-     * Opens a file dialog to choose a file and returns an Optional containing the selected file.
-     *
-     * @return An Optional containing the selected file, or empty if the user cancels the operation.
-     */
+
     public static Optional<File> openFile() {
         JFileChooser jFileChooser = new JFileChooser();
         jFileChooser.setCurrentDirectory(new File("."));
@@ -87,12 +84,6 @@ public class FileUtil {
         return Optional.of(jFileChooser.getSelectedFile());
     }
 
-    /**
-     * Reads the contents of the specified file and returns them as a string.
-     *
-     * @param file The file to read.
-     * @return The contents of the file as a string.
-     */
     public static String read(File file) {
         StringBuilder text = new StringBuilder();
         try {
@@ -105,7 +96,7 @@ public class FileUtil {
                 scanner.close();
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            logger.error(e.getMessage());
         }
         return text.toString();
     }

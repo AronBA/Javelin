@@ -4,7 +4,6 @@ package dev.aronba.javelin.components;
 
 
 import dev.aronba.javelin.Javelin;
-import dev.aronba.javelin.components.workspace.Workspace;
 import dev.aronba.javelin.util.LastProjectManager;
 
 import javax.swing.*;
@@ -49,7 +48,7 @@ public class NavBar extends JMenuBar {
 
         runMenu = new JMenu("Run");
 
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("runButton.png"));
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/runButton.png"));
         Image image = icon.getImage();
         Image resize = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 

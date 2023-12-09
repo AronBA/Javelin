@@ -1,11 +1,7 @@
 package dev.aronba.javelin.components;
 
-import dev.aronba.javelin.Project;
-import dev.aronba.javelin.components.workspace.TextEditor;
-import dev.aronba.javelin.components.workspace.Workspace;
-import dev.aronba.javelin.util.FileUtil;
+import dev.aronba.javelin.util.FileIO;
 import dev.aronba.javelin.Javelin;
-import dev.aronba.javelin.util.JavelinSize;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +18,10 @@ public class StartMenu extends JPanel   {
     public StartMenu(Javelin javelin){
         this.javelin = javelin;
 
-        javelin.setSize(JavelinSize.SMALL);
+        javelin.setSize(Javelin.DIMENSION_SMALL);
 
         this.setLayout(new FlowLayout());
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("logo.png"));
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
         Image image = icon.getImage();
         Image resize = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
         JLabel titleLabel = new JLabel("Javelin IDE", new ImageIcon(resize),SwingConstants.TRAILING);
@@ -51,7 +47,7 @@ public class StartMenu extends JPanel   {
     }
 
     private void openProject(){
-        Optional<File> folder = FileUtil.openFolder();
+        Optional<File> folder = FileIO.openFolder();
         if (folder.isEmpty()) return;
         javelin.setFullScreen();
 

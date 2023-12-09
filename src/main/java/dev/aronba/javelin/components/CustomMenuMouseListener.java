@@ -1,8 +1,5 @@
 package dev.aronba.javelin.components;
 
-import dev.aronba.javelin.Project;
-import dev.aronba.javelin.util.LastProjectManager;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
