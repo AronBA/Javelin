@@ -7,13 +7,12 @@ public class SideBar extends JPanel {
     List<SideBarComponent> sideBarComponentList;
 
     public SideBar(){
-
         loadSideBarComponents();
 
     }
 
     private void loadSideBarComponents(){
-
+       add()
     }
 
 
